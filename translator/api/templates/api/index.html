@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Translator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .translated-word {
+            margin-top: 20px;
+            margin-left: 20px;
+            padding: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+        .translations, .examples {
+            width: 400px;
+        }
+        .examples p:nth-child(even) {
+            color: green;
+        }
+        .examples p:nth-child(odd) {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Translate</button>
+        </form>
+    </div>
+
+    <div class="translations">
+        {% if translations %}
+            <h2>Translations:</h2>
+            {% for translation in translations %}
+                <p>{{ translation }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <div class="examples">
+        {% if examples %}
+            <h2>Examples:</h2>
+            {% for example in examples %}
+                <p>{{ example }}</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+</body>
+</html>
